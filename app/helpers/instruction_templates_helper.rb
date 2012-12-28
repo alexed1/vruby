@@ -1,0 +1,2 @@
+module InstructionTemplatesHelper
+end

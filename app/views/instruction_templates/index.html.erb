@@ -1,0 +1,23 @@
+<h1>Listing instruction_templates</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @instruction_templates.each do |instruction_template| %>
+  <tr>
+    <td><%= instruction_template.name %></td>
+    <td><%= link_to 'Show', instruction_template %></td>
+    <td><%= link_to 'Edit', edit_instruction_template_path(instruction_template) %></td>
+    <td><%= link_to 'Destroy', instruction_template, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Instruction template', new_instruction_template_path %>

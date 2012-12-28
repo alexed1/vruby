@@ -1,0 +1,23 @@
+<h1>Listing schmattas</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @schmattas.each do |schmatta| %>
+  <tr>
+    <td><%= schmatta.name %></td>
+    <td><%= link_to 'Show', schmatta %></td>
+    <td><%= link_to 'Edit', edit_schmatta_path(schmatta) %></td>
+    <td><%= link_to 'Destroy', schmatta, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Schmatta', new_schmatta_path %>
