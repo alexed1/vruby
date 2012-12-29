@@ -1,7 +1,7 @@
 class InstructionsController < ApplicationController
   # GET /instructions
   # GET /instructions.json
-  @@instruction_set_id = 1
+
 
   def index
     @instructions = Instruction.all
@@ -26,8 +26,8 @@ class InstructionsController < ApplicationController
   # GET /instructions/new
   # GET /instructions/new.json
   def new 
-    @instruction = Instruction.new(params[:set_id])
-    
+    @instruction = Instruction.new
+    session[:set_id] = params[:set_id]
 
     respond_to do |format|
       format.html # new.html.erb
@@ -43,9 +43,12 @@ class InstructionsController < ApplicationController
   # POST /instructions
   # POST /instructions.json
   def create
-    
-    debugger
-    @current_set_list = Instruction.all(:instruction_set_id => @@instruction_set_id)
+    @instruction = Instruction.new
+    @instruction.configure(params, session[:set_id])
+
+    #display the full set of instructions
+    @current_set_list = Instruction.all(:instruction_set_id => session[:set_id])
+    @set_name = InstructionSet.first(:id => session[:set_id])
 
     respond_to do |format|
       if @instruction.save

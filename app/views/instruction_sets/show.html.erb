@@ -2,7 +2,7 @@
 
 <p>
   <b>Name:</b>
-  <%= @instruction_set.name %>
+  <%= @set_name%>
 </p>
 
 <table>
@@ -20,7 +20,7 @@
 
 <%= link_to 'Execute Instruction Set', @instruction_set, method: :execute %>
 
-<%= link_to 'New Instruction', new_instruction_path(:set_id => @instruction_set.id)%>
+<%= link_to 'New Instruction', new_instruction_path(:set_id => params[:id])%>
 
 <%= link_to 'Edit', edit_instruction_set_path(@instruction_set) %> |
 <%= link_to 'Back', instruction_sets_path %>

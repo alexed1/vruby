@@ -12,16 +12,17 @@ class Instruction
 
   belongs_to :instruction_set
 
-  def initialize (set_id)
-    #store the instruction set that spawned this instruction
-    @set_id = set_id
+  def initialize ()
+    
+   
   end
 
-  def configure (params)
+  def configure (params, set_id)
     @instruction_template = InstructionTemplate.first(:id => params[:instruction_type][:template_id])
-    @instruction = @instruction_template.instructions.new
-    @instruction_set = InstructionSet.first(:id => @set_id)
-    @instruction_set.instructions << @instruction
+    @instruction_template.instructions << self
+  debugger
+    @instruction_set = InstructionSet.first(:id => set_id)
+    @instruction_set.instructions << self
 
   end
 
