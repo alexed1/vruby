@@ -24,7 +24,7 @@ gem 'dm-rails',               '~> 1.2.1'
 
 # gem 'dm-sqlite-adapter',    DM_VERSION
 gem 'dm-mysql-adapter',     DM_VERSION
-# gem 'dm-postgres-adapter',  DM_VERSION
+gem 'dm-postgres-adapter',  DM_VERSION
 # gem 'dm-oracle-adapter',    DM_VERSION
 # gem 'dm-sqlserver-adapter', DM_VERSION
 
