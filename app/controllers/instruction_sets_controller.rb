@@ -13,9 +13,8 @@ class InstructionSetsController < ApplicationController
   # GET /instruction_sets/1
   # GET /instruction_sets/1.json
   def show
-    @instruction_set = InstructionSet.get(params[:id])
+    @instruction_set = InstructionSet.first(:id => params[:id])
     @current_instructions_list = @instruction_set.instructions.all 
-
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @instruction_set }
@@ -36,12 +35,13 @@ class InstructionSetsController < ApplicationController
   # GET /instruction_sets/1/edit
   def edit
     @instruction_set = InstructionSet.get(params[:id])
+    session[:set_id] = params[:id]
   end
 
   def execute
     @instruction_set = InstructionSet.get(params[:id])
     @instruction_set.each do |instruction| 
-      template = InstructionTemplate.first[:id => instruction.template_id]
+    template = InstructionTemplate.first[:id => instruction.template_id]
     end
   end
 
@@ -50,8 +50,10 @@ class InstructionSetsController < ApplicationController
   def create
     @instruction_set = InstructionSet.new(params[:instruction_set])
 
+
     respond_to do |format|
       if @instruction_set.save
+        session[:set_id] = @instruction_set.id
         format.html { redirect_to @instruction_set, notice: 'Instruction set was successfully created.' }
         format.json { render json: @instruction_set, status: :created, location: @instruction_set }
       else

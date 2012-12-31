@@ -38,6 +38,7 @@ class InstructionsController < ApplicationController
   # GET /instructions/1/edit
   def edit
     @instruction = Instruction.get(params[:id])
+    @set = InstructionSet.first(:id => session[:set_id])
   end
 
   # POST /instructions
@@ -48,11 +49,10 @@ class InstructionsController < ApplicationController
 
     #display the full set of instructions
     @current_instructions_list = Instruction.all(:instruction_set_id => session[:set_id])
-    @set = InstructionSet.first(:id => session[:set_id])
-
+    @instruction_set = InstructionSet.first(:id => session[:set_id])
     respond_to do |format|
       if @instruction.save
-        format.html { redirect_to :template => "instruction_sets/show", :id => session[:set_id], notice: 'Instruction was successfully created.' }
+        format.html { redirect_to :controller => 'instruction_sets', :action => 'show', :id => session[:set_id], notice: 'Instruction was successfully created.' }
         format.json { render json: @instruction, status: :created, location: @instruction }
       else
 
@@ -65,14 +65,20 @@ class InstructionsController < ApplicationController
   # PUT /instructions/1
   # PUT /instructions/1.json
   def update
-    #debugger
-    @instruction = InstructionTemplate.instructions.create(params[:id])
-    #@instruction_set = InstructionTemplate.first(:id => params[:instruction][:id].to_i).instructions << @instruction
-    #@instruction_set.save
-    
+    #update the instruction record with any form changes
+    @instruction = Instruction.first(:id => params[:id])
+    instruction_type_id = params[:instruction_type][:template_id]
+    @instruction.instruction_template_id = instruction_type_id
+    @instruction.name = InstructionTemplate.first(:id => instruction_type_id).name
+    @instruction.save #to avoid a "dirty" raise...seems sloppy
+
+    #prepare to show the current set and its associated instructions. DRY this
+    @current_instructions_list = Instruction.all(:instruction_set_id => session[:set_id])
+    @instruction_set = InstructionSet.first(:id => session[:set_id])
+
     respond_to do |format|
       if @instruction.update(params[:instruction])
-        format.html { render 'instruction_sets/show', notice: 'Instruction was successfully updated.' }
+        format.html { redirect_to :controller => 'instruction_sets', :action => 'show', :id => session[:set_id], notice: 'Instruction was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
