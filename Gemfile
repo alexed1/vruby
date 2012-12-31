@@ -45,6 +45,11 @@ group :assets do
   gem 'uglifier',     '~> 1.2.4'
 end
 
+#group :production do
+	gem 'pg', '0.12.2'
+#end
+
+
 gem 'jquery-rails', '~> 2.0.1'
 
 gem 'debugger',				'~> 1.2.0'
