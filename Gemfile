@@ -70,3 +70,7 @@ group :test do
   # Pretty printed test output
   gem 'turn', '~> 0.9.4', :require => false
 end
+
+group :development, :test do
+  gem 'rspec-rails',      ">= 2.0.0.beta"
+end
