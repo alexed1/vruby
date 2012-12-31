@@ -20,7 +20,7 @@ class Instruction
   def configure (params, set_id)
     @instruction_template = InstructionTemplate.first(:id => params[:instruction_type][:template_id])
     @instruction_template.instructions << self
-  debugger
+    self.name = @instruction_template.name
     @instruction_set = InstructionSet.first(:id => set_id)
     @instruction_set.instructions << self
 

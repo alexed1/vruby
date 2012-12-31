@@ -47,12 +47,12 @@ class InstructionsController < ApplicationController
     @instruction.configure(params, session[:set_id])
 
     #display the full set of instructions
-    @current_set_list = Instruction.all(:instruction_set_id => session[:set_id])
-    @set_name = InstructionSet.first(:id => session[:set_id])
+    @current_instructions_list = Instruction.all(:instruction_set_id => session[:set_id])
+    @set = InstructionSet.first(:id => session[:set_id])
 
     respond_to do |format|
       if @instruction.save
-        format.html { render 'instruction_sets/show', notice: 'Instruction was successfully created.' }
+        format.html { redirect_to :template => "instruction_sets/show", :id => session[:set_id], notice: 'Instruction was successfully created.' }
         format.json { render json: @instruction, status: :created, location: @instruction }
       else
 

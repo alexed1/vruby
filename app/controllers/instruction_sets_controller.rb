@@ -14,7 +14,7 @@ class InstructionSetsController < ApplicationController
   # GET /instruction_sets/1.json
   def show
     @instruction_set = InstructionSet.get(params[:id])
-    @current_set_list = @instruction_set.instructions.all 
+    @current_instructions_list = @instruction_set.instructions.all 
 
     respond_to do |format|
       format.html # show.html.erb

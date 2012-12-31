@@ -6,7 +6,7 @@
 </p>
 
 <table>
-<% @current_set_list.each do |instruction| %>
+<% @current_instructions_list.each do |instruction| %>
   <tr>
     <td><%= instruction.name %></td>
     <td><%= link_to 'Show', instruction %></td>
@@ -22,5 +22,5 @@
 
 <%= link_to 'New Instruction', new_instruction_path(:set_id => params[:id])%>
 
-<%= link_to 'Edit', edit_instruction_set_path(@instruction_set) %> |
+<%= link_to 'Edit', edit_instruction_set_path(:id) %> |
 <%= link_to 'Back', instruction_sets_path %>

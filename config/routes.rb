@@ -21,6 +21,7 @@ Vruby::Application.routes.draw do
   # Keep in mind you can assign values other than :controller and :action
 
   match 'instruction_sets/:id' => 'instruction_sets#execute'
+  match 'instruction_sets/edit' => 'instruction_sets#edit'
 
   # Sample of named route:
   #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
